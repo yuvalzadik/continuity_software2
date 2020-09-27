@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.ITicket;
+import org.example.ITicket_Global;
 
 import java.util.Collection;
 

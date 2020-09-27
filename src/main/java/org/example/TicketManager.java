@@ -1,13 +1,31 @@
 package org.example;
 
-import org.example.ITicket;
-import org.example.ITicketManager;
-
 import java.util.Collection;
 import java.util.LinkedList;
 
 public class TicketManager implements ITicketManager {
-      private  LinkedList<ITicket> tickets;
+    private  LinkedList<ITicket> tickets;
+   /* private   int id;
+    private  String description;
+    private  String resolution;*/
+
+/*    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String getResolution() {
+        return resolution;
+    }*/
+
+
+
     @Override
     public void addTicket(ITicket ticket) {
         this.tickets.add(ticket);
@@ -34,8 +52,8 @@ public class TicketManager implements ITicketManager {
         return this.tickets ;
     }
 
-    public TicketManager() {
-        tickets = new LinkedList<ITicket>();
+    public TicketManager(LinkedList<ITicket> tickets) {
+        this.tickets = new LinkedList<ITicket>();
 
     }
 }
