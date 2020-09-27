@@ -5,24 +5,6 @@ import java.util.LinkedList;
 
 public class TicketManager implements ITicketManager {
     private  LinkedList<ITicket> tickets;
-   /* private   int id;
-    private  String description;
-    private  String resolution;*/
-
-/*    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public String getResolution() {
-        return resolution;
-    }*/
 
 
 
@@ -33,8 +15,8 @@ public class TicketManager implements ITicketManager {
 
     @Override
     public void removeTicket(ITicket ticket) {
-        this.tickets.remove(ticket);
 
+        this.tickets.remove(ticket);
     }
 
     @Override
@@ -52,9 +34,16 @@ public class TicketManager implements ITicketManager {
         return this.tickets ;
     }
 
-    public TicketManager(LinkedList<ITicket> tickets) {
+    public TicketManager() {
         this.tickets = new LinkedList<ITicket>();
 
+    }
+
+    @Override
+    public String toString() {
+        return "TicketManager{" +
+                "tickets=" + tickets +
+                '}';
     }
 }
 

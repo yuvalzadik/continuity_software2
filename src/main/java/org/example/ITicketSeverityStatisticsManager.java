@@ -1,10 +1,9 @@
 package org.example;
 
-import org.example.ITicketSeverity;
+import java.util.Set;
 
 public interface ITicketSeverityStatisticsManager {
-    void addTicketForAnalyzing(ITicketSeverity tickets);
-    String calcStatistics();
-    String calcCVEStatistics();
+    void calcStatistics();
+    void calcCVEStatistics();
 
 }

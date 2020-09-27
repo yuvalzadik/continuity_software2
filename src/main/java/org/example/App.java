@@ -4,25 +4,6 @@ import javax.print.attribute.standard.Severity;
 import java.util.LinkedList;
 import java.util.Random;
 
-/*import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.sun.net.httpserver.HttpPrincipal;
-import com.sun.net.httpserver.HttpsParameters;
-
-
-import javax.swing.text.html.HTML;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.ExecutionException;*/
-
 public class App 
 {
 
@@ -31,48 +12,57 @@ public class App
     {
 
         //create 1000 tickes automatically and assign them to the ticket manager
-        LinkedList<ITicket_Global> tickets = new LinkedList<ITicket_Global>();
-        //LinkedList<ITicket> tickets2 = new LinkedList<ITicket>();
-
-        String [] title = {"BestPracticeTicket", "SecurityTicket", "ConfigurationTicket"};
+        ITicketManager ticket_Manager = new TicketManager(); // create on ticket manager
         String [] description = {"NetApp issue", "Vmware bug ", "Unix service failed","Http status 400"};
         String [] resolution = {"Rebooting system", "Update version ", "Replacing cable","Changing network configuration"};
         String [] cve = {"CVE-2020-012", "CVE-2020-013", "CVE-2020-014","CVE-2020-015","CVE-2020-016"};
         ITicketSeverity.Severity[] severities = { ITicketSeverity.Severity.ERROR, ITicketSeverity.Severity.WARNING, ITicketSeverity.Severity.INFORMATION};
         Random random = new Random();
-        for(short i =1; i< 10; i++ ){
+        for(short i =0; i< 1000; i++ ){
             int select_description = random.nextInt(description.length);
             int select_resolution = random.nextInt(resolution.length);
             int select_CVE = random.nextInt(cve.length);
             int select_severity = random.nextInt(severities.length);
 
-            if (i< 3) {
-                SecurityTicket security1 = new SecurityTicket(i, description[select_description], resolution[select_resolution], cve[select_CVE], severities[select_severity]);
-                //ITicket_Global iticket = new ITicket_Global(i,description[select_description],resolution[select_resolution]) ;
-                //tickets2.add([i,description[select_description],resolution[select_resolution]))
-
-
-                //tickets.add(iticket);
-                System.out.println("Random String selected: " + security1);
+            if (i< 330) {
+                ITicket sec_ticket = new SecurityTicket(i, description[select_description], resolution[select_resolution], cve[select_CVE], severities[select_severity]);
+                ticket_Manager.addTicket(sec_ticket);
             }
 
-            else if (i< 6){
-                BestPracticeTicket  BestPracticeTicket1 = new  BestPracticeTicket(i, description[select_description], resolution[select_resolution], cve[select_CVE], severities[select_severity]);
-                ITicket_Global iticket = new ITicket_Global(i,description[select_description],resolution[select_resolution]) ;
-                tickets.add(iticket);
-                System.out.println("Random String selected: " +  BestPracticeTicket1);
-
+            else if (i<660){
+                ITicket  best_ticket = new  BestPracticeTicket(i, description[select_description], resolution[select_resolution], cve[select_CVE], severities[select_severity]);
+                ticket_Manager.addTicket(best_ticket);
             }
             else {
-                ConfigurationTicket  ConfigurationTicket1 = new  ConfigurationTicket(i, description[select_description], resolution[select_resolution], severities[select_severity]);
-                ITicket_Global iticket = new ITicket_Global(i,description[select_description],resolution[select_resolution]) ;
-                tickets.add(iticket);
-                System.out.println("Random String selected: " +  ConfigurationTicket1);
+                ITicket  con_ticket = new  ConfigurationTicket(i, description[select_description], resolution[select_resolution], severities[select_severity]);
+                ticket_Manager.addTicket(con_ticket);
             }
-            //TicketManager list1 = new TicketManager(tickets);
-    }
+        }
+        TicketSeverityStatisticsManager  statisticsManager= new TicketSeverityStatisticsManager(ticket_Manager); // creating new statistics manager - and assign the current ticket_manger
 
 
+
+        // Example of using the program
+        System.out.println("\nCurrent List:\n" + ticket_Manager.getTickets());
+        System.out.println("\ncount\n  " + ticket_Manager.getTickets().stream().count());
+
+        //add a ticket
+        int count = (int) ticket_Manager.getTickets().stream().count();
+        ITicket new_ticket_test = new BestPracticeTicket(count, "description", "resolutio", "CVE-2020-023", ITicketSeverity.Severity.ERROR);
+        ticket_Manager.addTicket(new_ticket_test);
+        System.out.println("\nCurrent List after adding new ITicket:\n" + ticket_Manager.getTickets());
+        System.out.println("\nCount after adding new ITicket:\n  " + ticket_Manager.getTickets().stream().count());
+
+        //remove a ticket
+        ticket_Manager.removeTicket(new_ticket_test);
+        System.out.println("\nCurrent List after removing the new ITicket:\n" + ticket_Manager.getTickets());
+        System.out.println("\nCount after removing the new ITicket:\n  " + ticket_Manager.getTickets().stream().count());
+
+        //calculate statistics
+        System.out.println("\nCVE Statistics:\n");
+        statisticsManager.calcCVEStatistics();
+        System.out.println("\nSeverity Statistics:\n" );
+        statisticsManager.calcStatistics();
 
     }
 }
