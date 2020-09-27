@@ -1,3 +1,4 @@
+package org.example;
 public class ConfigurationTicket implements ITicket,ITicketSeverity {
 
     private String description;
@@ -25,10 +26,19 @@ public class ConfigurationTicket implements ITicket,ITicketSeverity {
         return id;
     }
 
-    public ConfigurationTicket(int id, String description, String resolution, String CVE, Severity severity) {
+    public ConfigurationTicket(int id, String description, String resolution, Severity severity) {
         this.id = id;
         this.description = description;
         this.resolution = resolution;
         this.severity = severity;
+    }
+
+    public String toString() {
+        return "ConfigurationTicket" +
+                ", id=" + id +
+                ", description='" + description + '\'' +
+                ", resolution='" + resolution + '\'' +
+                ", severity=" + severity +
+                '}';
     }
 }

@@ -1,4 +1,6 @@
-import java.util.Collection;
+package org.example;
+
+import org.example.ITicketSeverity;
 
 public interface ITicketSeverityStatisticsManager {
     void addTicketForAnalyzing(ITicketSeverity tickets);

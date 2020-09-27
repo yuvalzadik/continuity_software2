@@ -1,7 +1,12 @@
+package org.example;
+
+import org.example.ITicket;
+import org.example.ITicketManager;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class TicketManager implements ITicketManager{
+public class TicketManager implements ITicketManager {
       private  LinkedList<ITicket> tickets;
     @Override
     public void addTicket(ITicket ticket) {

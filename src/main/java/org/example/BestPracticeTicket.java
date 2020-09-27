@@ -1,4 +1,6 @@
-public class SecurityTicket  implements ITicket, ITicketCVE,ITicketSeverity{
+package org.example;
+public class BestPracticeTicket implements ITicket, ITicketCVE,ITicketSeverity{
+
 
     private  String CVE;
     private  String description;
@@ -31,11 +33,23 @@ public class SecurityTicket  implements ITicket, ITicketCVE,ITicketSeverity{
         return id;
     }
 
-    public SecurityTicket(int id, String description, String resolution, String CVE, Severity severity) {
+    public BestPracticeTicket(int id, String description, String resolution, String CVE, Severity severity) {
         this.id = id;
         this.description = description;
         this.resolution = resolution;
         this.CVE = CVE;
         this.severity = severity;
+
+    }
+
+    @Override
+    public String toString() {
+        return "BestPracticeTicket{" +
+                ", id=" + id +
+                ", description='" + description + '\'' +
+                ", resolution='" + resolution + '\'' +
+                "CVE='" + CVE + '\'' +
+                ", severity=" + severity +
+                '}';
     }
 }

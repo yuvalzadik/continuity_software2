@@ -1,3 +1,7 @@
+package org.example;
+
+import org.example.ITicket;
+
 import java.util.Collection;
 
 public interface ITicketManager {
